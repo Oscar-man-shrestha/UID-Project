@@ -1,24 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 /* General Styles */
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'poopins',sans-serif;
+    width: 100%;
+    height: 100vh;
+    overflow-x:hidden ;
+    background-color: rgb(107, 105, 105);
+    color: rgb(0, 0, 0);
+
+}
+
+input[type="text"] {
+    flex-grow: 1;
+    margin: 0 20px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
 }
 
 /* Navbar */
 .navbar {
+    margin-top: 0px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 86%;
+    padding: 1rem 9%;
+
+  /* nav blur background */
+    background-color: linear-gradient(135deg,rgba(255,255,255,0.1),rgba(255,255,255,0)); /* background color of nav bar */
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.18);
+    filter: drop-shadow(10px);
+
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    background-color: darkred;
-    padding: 15px 20px;
-    color: white;
-    height: 12vh;
+    align-items: center;
+    z-index:100;
 }
+
 
 /* Logo */
 .logo {
     font-size: 24px;
+    color: #e50914;
     font-weight: bold;
+    text-decoration: none;
+    margin-left: -100px;
+    
+  
+}
+.logo:hover {
+    transform: scale(1.1); /* Slight zoom effect */
 }
 
 /* Search Box */
@@ -41,14 +75,16 @@ body {
 }
 
 .nav-links a {
+ 
     text-decoration: none;
-    color: white;
-    font-size: 16px;
-    transition: 0.3s;
+    font-size: 20px;
+    color: rgb(0, 0, 0);
+    transition: 0.3s ease;
+    border-bottom: 3px solid transparent;
 }
 
 .nav-links a:hover {
-    color: #ffcc00;
+    color: #228be6;
 }
 
 body, html {
@@ -61,7 +97,7 @@ body, html {
 /* Hero Section */
 .hero {
     width: 100%;
-    height: 85vh;
+    height: 100vh;
    /* background: url('background_images/movie1.jpg') no-repeat center/cover;*/
     animation: changeBackground 10s infinite linear;
     position: relative;
@@ -88,7 +124,31 @@ body, html {
 
 .hero-content h1 {
     font-size: 2.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    /*  Typing Line */
+    /* border-right: 5px solid;  
+    animation: typing 4s steps(22), cursor 0.8s step-end infinite alternate; */
+
 }
+
+
+/* typing effect */
+/* @keyframes typing {
+    from{
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+    
+}
+@keyframes cursor {
+    50%{
+        border-color: transparent;
+    }
+    
+} */
 
 .hero-content p {
     font-size: 1.2rem;
