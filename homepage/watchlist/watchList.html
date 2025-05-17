@@ -19,30 +19,39 @@
             </div>
             
             <div class="controls">
-                <select id="movieSelect">
-                    <option value="">-- Select a Movie --</option>
-                </select>
-                <button onclick="addSelectedMovie()" style="background-color: #26b4ff; color: white;">
-                    Add Movie
-                </button>
-                <button onclick="addMovie()" style="background-color: #26b4ff; color: white;">
-                    Add Random Movie
-                </button>
-            </div>
+    <div class="search-container">
+        <div class="search-wrapper">
+            <input type="text" id="searchInput" placeholder="Search movies..." autocomplete="off">
+            <select id="searchGenre">
+                <option value="All">All Genres</option>
+                <option value="Disney">Disney</option>
+                <option value="Anime">Anime</option>
+                <option value="Action">Action</option>
+                <option value="Horror">Horror</option>
+                <option value="Sitcom">Sitcom</option>
+                <option value="Documentary">Documentary</option>
+            </select>
+        </div>
+        <div id="searchResults" class="search-results"></div>
+        <button onclick="addRandomMovie()" class="add2">
+            Add Random Movie
+        </button>
+    </div>
+</div>
             <div class="action">
                 <div class="profile" onclick="menuToggle()">
-                  <img src="https://i.pinimg.com/736x/98/1e/58/981e58b37788d4278ddb000c4bbb14d7.jpg" alt="Profile Image">
+                  <img src="../profile/images/Rowan Atkinson.jpeg" alt="Profile Image">
                 </div>
                 <div class="menu">
-                  <h3>User Name <br><span>Student</span></h3>
+                  <h3 id="username">User Name </h3>
                   <ul>
                     <li><img src="./img/user.png" alt="User Icon"><a href="../userprofile/userprofile.html">My profile</a></li>
                 <li><img src="./img/edit.png" alt="Edit Icon"><a href="../profile/index.html">Edit profile</a></li>
-                <li><img src="./img/star.png" alt="Your rating"><a href="#"> Your rating</a></li>
+                <li><img src="./img/star.png" alt="Your rating"><a href="../yourrating.html"> Your rating</a></li>
                 <li><img src="./img/bookmark.png" alt="Your watchlist"><a href="#">Your watchlist</a></li>
                 <li><img src="./img/settings.png" alt="Settings Icon"><a href="//127.0.0.1:5501/homepage/profile/index.html#">Settings</a></li>
-                <li><img src="./img/question.png" alt="Help Icon"><a href="#">Help</a></li>
-                <li><img src="./img/log-out.png" alt="Logout Icon"><a href="#">Logout</a></li>
+                <li><img src="./img/question.png" alt="Help Icon"><a href="../index.html#contact">Help</a></li>
+                <li><img src="./img/log-out.png" alt="Logout Icon"><a href="../login.html">Logout</a></li>
                   </ul>
                 </div>
               </div>

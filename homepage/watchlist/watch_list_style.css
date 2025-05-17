@@ -6,7 +6,8 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #1c1c1c, #383838, #585858, #b8b8b8);
+    background-color: #D84040;
+
     background-attachment: fixed;
     background-size: cover;
     color: #fff;
@@ -133,7 +134,7 @@ header h1 {
   }
   
   .action .menu ul li a:hover {
-    color:  #26b4ff;
+    color:   #D84040;
     
   }
   
@@ -349,8 +350,8 @@ button {
 }
 
 .go-back:hover {
-    background-color: #26b4ff;
-    color: #fff;
+    background-color: #ffffff;;
+    color: #000000;
 }
 
 .header-left {
@@ -358,4 +359,222 @@ button {
     align-items: center;
     gap: 20px;
     flex-wrap: wrap;
+}
+
+
+
+.add1 {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  font-size: 14px;
+  color: #ffffff;
+  text-decoration: none;
+  background-color: transparent;
+  border: 1px solid #ffffff;
+  padding: 6px 12px;
+  border-radius: 6pxA;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.add1:hover {
+  background-color: #ffffff;;
+  color: #000000;
+}
+
+.add2 {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  font-size: 14px;
+  color: #ffffff;
+  text-decoration: none;
+  background-color: transparent;
+  border: 1px solid #ffffff;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.add2:hover {
+  background-color: #ffffff;;
+  color: #000000;
+}
+
+/* Search results styling */
+#searchResults {
+    position: absolute;
+    background: white;
+    width: 100%;
+    max-height: 300px;
+    overflow-y: auto;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    z-index: 100;
+    border-radius: 0 0 5px 5px;
+}
+
+.search-result-item {
+    display: flex;
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+
+.search-result-item:hover {
+    background-color: #f5f5f5;
+}
+
+.search-result-item img {
+    width: 50px;
+    height: 70px;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.search-result-details {
+    flex: 1;
+}
+
+.search-result-details h4 {
+    margin: 0 0 5px 0;
+}
+
+.search-result-details p {
+    margin: 0;
+    font-size: 0.8em;
+    color: #666;
+}
+
+.no-results {
+    padding: 10px;
+    color: #666;
+    text-align: center;
+}
+
+/* Toast notifications */
+.toast {
+    visibility: hidden;
+    min-width: 250px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    bottom: 30px;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s, bottom 0.3s;
+}
+
+.toast.show {
+    visibility: visible;
+    opacity: 1;
+    bottom: 50px;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+}
+
+.search-wrapper {
+    display: flex;
+    flex-grow: 1;
+    position: relative;
+}
+
+#searchInput {
+    flex: 1;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px 0 0 4px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+#searchInput:focus {
+    border-color: #D84040;
+}
+
+#searchGenre {
+    width: 140px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-left: none;
+    border-radius: 0 4px 4px 0;
+    appearance: none;
+    background-color: white;
+    cursor: pointer;
+}
+
+.search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    z-index: 100;
+    max-height: 300px;
+    overflow-y: auto;
+    display: none;
+}
+
+.search-results.active {
+    display: block;
+}
+
+.search-result-item {
+    padding: 10px 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.2s;
+}
+
+.search-result-item:hover {
+    background-color: #f5f5f5;
+}
+
+.search-result-item img {
+    width: 40px;
+    height: 60px;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.search-result-details {
+    flex: 1;
+}
+
+.search-result-details h4 {
+    margin: 0;
+    color: #333;
+    font-size: 15px;
+}
+
+.search-result-details p {
+    margin: 5px 0 0;
+    color: #666;
+    font-size: 13px;
+}
+
+.no-results {
+    padding: 15px;
+    color: #666;
+    text-align: center;
+}
+.movie-card img {
+    background: #333 url('./img/placeholder.jpg') no-repeat center;
+    background-size: contain;
 }

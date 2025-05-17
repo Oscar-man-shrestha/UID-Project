@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Rating</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #eeeeee;
+            color: black;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #D84040;
+        }
+
+        h1 {
+            color: #D84040;
+            font-size: 2rem;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: #D84040;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: black;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid #D84040;
+            color: #D84040;
+        }
+
+        .btn-outline:hover {
+            background-color: #D84040;
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: #D84040;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: black;
+        }
+
+        .rating-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .movie-poster {
+            width: 100px;
+            height: 150px;
+            border-radius: 5px;
+            object-fit: cover;
+            margin-right: 20px;
+        }
+
+        .movie-info {
+            flex: 1;
+        }
+
+        .movie-title {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            color: black;
+        }
+
+        .movie-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 10px;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        .badge {
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-premium {
+            background-color: #D84040;
+            color: white;
+        }
+
+        .badge-free {
+            background-color: black;
+            color: white;
+        }
+
+        .rating-display {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .stars {
+            color: gold;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            margin-right: 10px;
+        }
+
+        .rating-value {
+            font-weight: bold;
+            color: black;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .rating-date {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .rating-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            position: relative;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: black;
+        }
+
+        .modal-poster {
+            width: 100px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .rating-prompt {
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+        .star-rating .star {
+            font-size: 2rem;
+            cursor: pointer;
+            transition: color 0.3s;
+            color: #ccc;
+        }
+
+        .star-rating .star.active {
+            color: gold;
+        }
+
+        .modal-actions {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .movie-poster {
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <button id="go-back-btn" class="btn btn-outline" onclick="window.history.back();">
+    <i class="fas fa-arrow-left"></i> Go Back
+</button>
+<h1>Your Movie Ratings</h1>
+        </header>
+        
+        <!-- Existing Rating Card -->
+        <div class="rating-card" id="rating-card">
+            <div class="card-header">
+                <img src="https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_FMjpg_UX1000_.jpg" alt="Inception" class="movie-poster">
+                <div class="movie-info">
+                    <h2 class="movie-title">Inception</h2>
+                    <div class="movie-meta">
+                        <span>Action</span>
+                        <span>English</span>
+                        <span class="badge badge-premium">Premium</span>
+                    </div>
+                    <div class="rating-display">
+                        <div class="stars">★★★★★</div>
+                        <span class="rating-value">5.0</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="rating-date">Rated on June 15, 2023</div>
+                <div class="rating-actions">
+                    <button id="edit-rating-btn" class="btn btn-outline">
+                        <i class="fas fa-edit"></i> Edit Rating
+                    </button>
+                    <button id="delete-rating-btn" class="btn btn-danger">
+                        <i class="fas fa-trash"></i> Delete Rating
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Rating Modal -->
+    <div class="modal-overlay" id="rating-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-movie-title">Movie Title</h3>
+                <button class="close-btn" id="close-modal">&times;</button>
+            </div>
+            <img src="" alt="Movie poster" class="modal-poster" id="modal-poster">
+            <p class="rating-prompt">How would you rate this movie?</p>
+            <div class="star-rating" id="star-rating">
+                <span class="star" data-rating="1">☆</span>
+                <span class="star" data-rating="2">☆</span>
+                <span class="star" data-rating="3">☆</span>
+                <span class="star" data-rating="4">☆</span>
+                <span class="star" data-rating="5">☆</span>
+            </div>
+            <div class="modal-actions">
+                <button id="cancel-rating-btn" class="btn btn-outline">Cancel</button>
+                <button id="submit-rating-btn" class="btn btn-primary">Submit Rating</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // State variables
+        let currentRating = 0;
+        let currentMovie = null;
+        let isEditing = false;
+        
+        // DOM Elements
+        const ratingModal = document.getElementById('rating-modal');
+        const closeModalBtn = document.getElementById('close-modal');
+        const cancelRatingBtn = document.getElementById('cancel-rating-btn');
+        const modalMovieTitle = document.getElementById('modal-movie-title');
+        const modalPoster = document.getElementById('modal-poster');
+        const starRating = document.getElementById('star-rating');
+        const stars = document.querySelectorAll('.star');
+        const submitRatingBtn = document.getElementById('submit-rating-btn');
+        const editRatingBtn = document.getElementById('edit-rating-btn');
+        const deleteRatingBtn = document.getElementById('delete-rating-btn');
+        const ratingCard = document.getElementById('rating-card');
+        
+        // Initialize the app
+        function init() {
+            setupEventListeners();
+        }
+        
+        // Set up event listeners
+        function setupEventListeners() {
+            // Rating modal buttons
+            closeModalBtn.addEventListener('click', closeRatingModal);
+            cancelRatingBtn.addEventListener('click', closeRatingModal);
+            
+            // Star rating interaction
+            stars.forEach(star => {
+                star.addEventListener('click', () => {
+                    currentRating = parseInt(star.getAttribute('data-rating'));
+                    updateStars(currentRating);
+                });
+                
+                star.addEventListener('mouseover', () => {
+                    if (!currentRating) {
+                        const rating = parseInt(star.getAttribute('data-rating'));
+                        updateStars(rating);
+                    }
+                });
+                
+                star.addEventListener('mouseout', () => {
+                    if (!currentRating) {
+                        resetStars();
+                    }
+                });
+            });
+            
+            // Submit rating button
+            submitRatingBtn.addEventListener('click', () => {
+                if (currentRating > 0 && currentMovie) {
+                    if (isEditing && currentMovie.title === 'Inception') {
+                        const starsElement = ratingCard.querySelector('.stars');
+                        starsElement.textContent = '★'.repeat(currentRating) + '☆'.repeat(5 - currentRating);
+                        ratingCard.querySelector('.rating-value').textContent = currentRating.toFixed(1);
+                        ratingCard.querySelector('.rating-date').textContent = `Rated on ${getCurrentDate()}`;
+                        alert(`Updated your rating for Inception to ${currentRating} stars!`);
+                    }
+                    closeRatingModal();
+                } else {
+                    alert('Please select a rating first.');
+                }
+            });
+            
+            // Edit rating button
+            editRatingBtn.addEventListener('click', () => {
+                isEditing = true;
+                currentRating = 5; // Current rating for Inception
+                currentMovie = {
+                    title: 'Inception',
+                    img: 'https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_FMjpg_UX1000_.jpg',
+                    rating: 9.5,
+                    lang: 'EN',
+                    isPremium: true,
+                    genre: 'Action'
+                };
+                openRatingModal(currentMovie, currentRating);
+            });
+            
+            // Delete rating button
+            deleteRatingBtn.addEventListener('click', () => {
+                if (confirm('Are you sure you want to delete your rating for Inception?')) {
+                    ratingCard.style.display = 'none';
+                    alert('Rating for Inception deleted!');
+                }
+            });
+        }
+        
+        // Open rating modal
+        function openRatingModal(movie, existingRating = 0) {
+            modalMovieTitle.textContent = movie.title;
+            modalPoster.src = movie.img;
+            currentRating = existingRating;
+            
+            if (existingRating > 0) {
+                updateStars(existingRating);
+            } else {
+                resetStars();
+            }
+            
+            ratingModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // Close rating modal
+        function closeRatingModal() {
+            ratingModal.classList.remove('active');
+            document.body.style.overflow = '';
+            currentRating = 0;
+            currentMovie = null;
+            isEditing = false;
+            setTimeout(() => {
+                resetStars();
+            }, 300);
+        }
+        
+        // Update stars display
+        function updateStars(rating) {
+            stars.forEach(star => {
+                const starValue = parseInt(star.getAttribute('data-rating'));
+                star.textContent = starValue <= rating ? '★' : '☆';
+                star.classList.toggle('active', starValue <= rating);
+            });
+        }
+        
+        // Reset stars to empty
+        function resetStars() {
+            stars.forEach(star => {
+                star.textContent = '☆';
+                star.classList.remove('active');
+            });
+        }
+        
+        // Get current date in Month Day, Year format
+        function getCurrentDate() {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date().toLocaleDateString('en-US', options);
+        }
+        
+        // Initialize the app
+        init();
+    </script>
+</body>
+</html>

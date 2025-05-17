@@ -1,20 +1,56 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Profile Settings</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
   <link rel="stylesheet" href="style.css" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 </head>
-
 <body>
   <div class="container mt-4">
-    <h4 class="mb-4">Account Settings</h4>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h4 class="mb-0" style="color: #E5383B;">Account Settings</h4>
+      <a href="#" class="goback" onclick="
+  if (document.referrer && document.referrer !== window.location.href) {
+    window.history.back();
+  } else {
+    window.location.href = '/'; // or your desired fallback
+  }
+  return false;
+">← Go Back</a>
+
+
+    </div>
+
+    <div class="toast-container">
+      <!-- Success Toast -->
+      <div id="successToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
+        <div class="toast-header bg-success text-white">
+          <strong class="mr-auto">Success</strong>
+          <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="toast-body" id="successToastMessage"></div>
+      </div>
+      
+      <!-- Error Toast -->
+      <div id="errorToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
+        <div class="toast-header bg-danger text-white">
+          <strong class="mr-auto">Error</strong>
+          <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="toast-body" id="errorToastMessage"></div>
+      </div>
+    </div>
+
     <div class="card">
       <div class="row no-gutters">
-
         <!-- Sidebar Menu -->
         <div class="col-md-3">
           <div class="list-group settings-menu">
@@ -30,18 +66,18 @@
         <!-- Tab Content -->
         <div class="col-md-9">
           <div class="tab-content">
-
+            
             <!-- General Tab -->
             <div class="tab-pane fade show active" id="general">
               <form>
                 <div class="card-body d-flex align-items-center">
-                  <img src="./images/Rowan Atkinson.jpeg" class="profile-img" />
+                  <img id="profileImg" src="" alt="Profile Image" class="profile-img" style="max-width: 200px; height: auto;">
                   <div class="ml-4 d-flex align-items-center gap-2">
-                    <label class="btn btn-outline-primary mr-2">
+                    <label class="btn btn-outline-primary mr-2" id="up">
                       Upload Photo
-                      <input type="file" class="file-input" hidden />
+                      <input type="file" id="profilePic" class="file-input">
                     </label>
-                    <button type="button" class="btn btn-outline-primary">Reset</button>
+                    <button type="button" class="btn btn-outline-primary" id="rs">Reset</button>
                     <div class="text-muted mt-2 ml-4">JPG, GIF or PNG. Max 800K</div>
                   </div>
                 </div>
@@ -53,20 +89,20 @@
                       <label for="username">Username</label>
                       <span class="edit-link">Edit</span>
                     </div>
-                    <input type="text" name="username" class="form-control" placeholder="username" />
+                    <input type="text" name="username" class="form-control" id="username" placeholder="Username" />
                   </div>
 
                   <div class="form-group">
                     <div class="d-flex justify-content-between">
-                      <label for="Bio">Bio</label>
+                      <label for="bio">Bio</label>
                       <span class="edit-link">Edit</span>
                     </div>
-                    <textarea rows="1" class="form-control"></textarea>
+                    <textarea rows="1" id="bio" class="form-control"></textarea>
                   </div>
 
                   <div class="form-group">
                     <label>Choose a language</label>
-                    <select class="form-control">
+                    <select class="form-control" id="language">
                       <option>Select Language</option>
                       <option value="Mandarin Chinese">Mandarin Chinese</option>
                       <option value="Spanish">Spanish</option>
@@ -84,82 +120,131 @@
                 </div>
               </form>
             </div>
-            
 
-            <!-- Password Tab -->
-            <div class="tab-pane fade" id="password">
-              <form>
-                <div class="card-body">
-                  <h5>Login & Security</h5>
+         <!-- Password Tab -->
+         <!-- Password Tab - Redesigned -->
+<div class="tab-pane fade" id="password">
+  <div class="card-body">
+    <h5 class="mb-4" style="color: #D84040;">Login & Security</h5>
+    
+    <!-- Security Items Container -->
+    <div class="security-items">
 
-                  <div class="form-group d-flex justify-content-between align-items-center">
-                    
-              </form>
-            </div>
-
-            <!-- Name Card -->
-            <div class="form-group d-flex justify-content-between align-items-center">
-              <span class="ls-f">Name</span>
-              <button type="button" class="btn btn-action" onclick="openModal('nameModal')">Edit</button>
-            </div>
-            <hr />
-
-            <!-- Email Card -->
-            <div class="form-group d-flex justify-content-between align-items-center">
-              <span class="ls-f">Email</span>
-              <button type="button" class="btn btn-action" onclick="openModal('emailModal')">Edit</button>
-            </div>
-            <hr />
-
-            <!-- Phone Number Card -->
-            <div class="form-group d-flex justify-content-between align-items-center">
-              <span class="ls-f">Primary Phone Number</span>
-              <button type="button" class="btn btn-action" onclick="openModal('phoneModal')">Edit</button>
-            </div>
-            <hr />
-
-            <!-- Password Card -->
-            <div class="form-group d-flex justify-content-between align-items-center">
-              <span class="ls-f">Password</span>
-              <button type="button" class="btn btn-action" onclick="openModal('passwordModal')">Edit</button>
-            </div>
-          </div>
+       <!-- Password Item -->
+       <div class="security-item">
+        <div class="security-icon">
+          <i class="fas fa-lock" style="color: #D84040;"></i>
         </div>
+        <div class="security-details">
+          <h6>Password</h6>
+          <p class="text-muted">••••••••</p>
+        </div>
+        <button type="button" class="btn btn-action" onclick="openModal('passwordModal')">
+          <i class="fas fa-pencil-alt"></i> Change
+        </button>
+      </div>
+      
+      <!-- Email Item -->
+      <div class="security-item">
+        <div class="security-icon">
+          <i class="fas fa-envelope" style="color: #D84040;"></i>
+        </div>
+        <div class="security-details">
+          <h6>Email Address</h6>
+          <p id="currentEmail" class="text-muted">user@example.com</p>
+        </div>
+        <button type="button" class="btn btn-action" onclick="openModal('emailModal')">
+          <i class="fas fa-pencil-alt"></i> Change
+        </button>
+      </div>
+      
+      <!-- Phone Item -->
+      <div class="security-item">
+        <div class="security-icon">
+          <i class="fas fa-phone" style="color: #D84040;"></i>
+        </div>
+        <div class="security-details">
+          <h6>Phone Number</h6>
+          <p id="currentPhone" class="text-muted">+1 (123) 456-7890</p>
+        </div>
+        <button type="button" class="btn btn-action" onclick="openModal('phoneModal')">
+          <i class="fas fa-pencil-alt"></i> Change
+        </button>
+      </div>
+      
+     
+    </div>
+  </div>
+</div>
 
-            <!-- Info Tab -->
-            <div class="tab-pane fade" id="info">
-              <form>
-                <div class="card-body">
-                  <div class="form-group">
-                    <label>Bio</label>
-                    <textarea rows="2" class="form-control"></textarea>
-                  </div>
+       <!-- Info Tab - Entertainment Profile -->
+<div class="tab-pane fade" id="info">
+  <form>
+    <div class="card-body">
+      <h5 class="mb-4" style="color: #D84040;">Personal Details</h5>
+      <!-- Date of Birth -->
+      <div class="form-group">
+        <div class="label-edit-container">
+          <label for="dateInput">Date of Birth</label>
+          <span class="edit-link">Edit</span>
+        </div>
+        <input type="date" id="dateInput" class="form-control" />
+      </div>
 
-                  <div class="form-group">
-                    <label for="dateInput">Date Of Birth</label>
-                    <input type="date" id="dateInput" class="form-control" />
-                  </div>
+      <!-- Gender -->
+      <div class="form-group">
+        <div class="label-edit-container">
+          <label for="gender">Gender</label>
+          <span class="edit-link">Edit</span>
+        </div>
+        <select id="gender" class="form-control">
+          <option value="">Select</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Non-binary">Non-binary</option>
+          <option value="Other">Other</option>
+          <option value="Prefer not to say">Prefer not to say</option>
+        </select>
+      </div>
 
-                  <div class="form-group">
-                    <label>Country</label>
-                    <select class="form-control">
-                      <option>USA</option>
-                      <option>Canada</option>
-                      <option selected>Select Country</option>
-                      <option>UK</option>
-                      <option>India</option>
-                      <option>Nepal</option>
-                      <option>Korea</option>
-                    </select>
-                  </div>
-                </div>
-              </form>
-            </div>
+      <!-- Favorite Movie Genre -->
+      <div class="form-group">
+        <div class="label-edit-container">
+          <label for="movieGenre">Favorite Movie Genre</label>
+          <span class="edit-link">Edit</span>
+        </div>
+        <select id="movieGenre" class="form-control">
+          <option value="">Select Genre</option>
+          <option value="Action">Action</option>
+          <option value="Comedy">Comedy</option>
+          <option value="Horror">Horror</option>
+          <option value="Sci-Fi">Sci-Fi</option>
+          <option value="Romance">Romance</option>
+          <option value="Documentary">Documentary</option>
+        </select>
+      </div>
 
+    
+
+      <!-- Movie Ratings -->
+      <div class="form-group">
+        <div class="label-edit-container">
+          <label>Rate Your Movie Passion</label>
+          <span class="edit-link">Edit</span>
+        </div>
+        <div class="d-flex align-items-center">
+          <input type="range" id="moviePassion" class="custom-range" min="1" max="5" value="3">
+          <span id="passionLevel" class="ml-2" style="color: var(--primary);">★★★☆☆</span>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
             <!-- Social Tab -->
             <div class="tab-pane fade" id="social">
               <form>
                 <div class="card-body">
+                  <h5 class="mb-4" style="color: #D84040;">Linked Accounts</h5>
                   <div class="form-group"><label>Twitter</label><input type="text" class="form-control" /></div>
                   <div class="form-group"><label>Facebook</label><input type="text" class="form-control" /></div>
                   <div class="form-group"><label>Instagram</label><input type="text" class="form-control" /></div>
@@ -170,6 +255,7 @@
             <!-- Connections Tab -->
             <div class="tab-pane fade" id="connections">
               <div class="card-body">
+                <h5 class="mb-4" style="color: #D84040;">Connections</h5>
                 <button class="btn btn-primary mb-3">Connect to Twitter</button>
                 <button class="btn btn-primary mb-3">Connect to Facebook</button>
                 <button class="btn btn-primary mb-3">Connect to Instagram</button>
@@ -179,7 +265,7 @@
             <!-- Alerts Tab -->
             <div class="tab-pane fade" id="alerts">
               <div class="card-body">
-                <h6 class="mb-3">Notifications</h6>
+                <h5 class="mb-4" style="color: #D84040;">Notifications</h5>
                 <div class="form-group form-check">
                   <input type="checkbox" class="form-check-input" checked />
                   <label class="form-check-label">Email me on comments</label>
@@ -196,14 +282,11 @@
       </div>
 
       <div class="text-right p-3">
-        <button class="btn btn-primary">Save</button>
-        <button class="btn btn-secondary">Cancel</button>
+        <button class="btn btn-primary" id="s1">Save</button>
+        <button class="btn btn-secondary" id="c1">Cancel</button>
       </div>
     </div>
   </div>
-      </div>
-      
-
 
   <!-- Modals -->
   <!-- Name Modal -->
@@ -212,8 +295,7 @@
       <h5>Edit Name</h5>
       <form onsubmit="return handleSave(event, 'nameInput', 'nameMessage')">
         <div class="form-group">
-          <label for="nameInput">If you want to change the name associated with your account, you may do so below. Be sure to click the Save Changes button when you are done.</label>
-          <h6>New name</h6>
+          <label for="nameInput">Enter new name</label>
           <input type="text" id="nameInput" class="form-control" placeholder="Enter your name" />
         </div>
         <div id="nameMessage" class="mt-2 font-weight-bold"></div>
@@ -231,8 +313,7 @@
       <h5>Edit Email</h5>
       <form onsubmit="return handleSave(event, 'emailInput', 'emailMessage')">
         <div class="form-group">
-          <label for="emailInput">Enter the new email address you would like to associate with your account below. We will send a One Time Password (OTP) to that address.</label>
-          <h6>New email address</h6>
+          <label for="emailInput">Enter the new email address below</label>
           <input type="email" id="emailInput" class="form-control" placeholder="Enter your email" />
         </div>
         <div id="emailMessage" class="mt-2 font-weight-bold"></div>
@@ -250,8 +331,7 @@
       <h5>Edit Phone Number</h5>
       <form onsubmit="return handleSave(event, 'phoneInput', 'phoneMessage')">
         <div class="form-group">
-          <label for="phoneInput">By enrolling a mobile phone number, you consent to receive automated security notifications via text message.</label>
-          <h6>New Primary phone number</h6>
+          <label for="phoneInput">Enter the new phone number</label>
           <input type="tel" id="phoneInput" class="form-control" placeholder="Enter your phone number" />
         </div>
         <div id="phoneMessage" class="mt-2 font-weight-bold"></div>
@@ -263,6 +343,7 @@
     </div>
   </div>
 
+  
   <!-- Password Modal -->
   <div id="passwordModal" class="modal-custom">
     <div class="modal-custom-content">
@@ -270,32 +351,56 @@
       <form onsubmit="return handlePasswordSave(event)">
         <div class="form-group">
           <label for="currentPassword">Current Password</label>
-          <input type="password" id="currentPassword" class="form-control" placeholder="Enter current password" />
+          <div class="input-group">
+            <input type="password" id="currentPassword" class="form-control" placeholder="Enter current password" />
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary toggle-password" type="button">
+                <i class="fa fa-eye"></i>
+              </button>
+            </div>
+          </div>
         </div>
+        
         <div class="form-group">
           <label for="newPassword">New Password</label>
-          <input type="password" id="newPassword" class="form-control" placeholder="Enter new password" />
+          <div class="input-group">
+            <input type="password" id="newPassword" class="form-control" placeholder="Enter new password" />
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary toggle-password" type="button">
+                <i class="fa fa-eye"></i>
+              </button>
+            </div>
+          </div>
+          <small id="passwordStrength" class="form-text"></small>
         </div>
         
         <div class="form-group">
           <label for="confirmPassword">Confirm Password</label>
-          <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm new password" />
+          <div class="input-group">
+            <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm new password" />
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary toggle-password" type="button">
+                <i class="fa fa-eye"></i>
+              </button>
+            </div>
+          </div>
         </div>
+        
         <div id="passwordMessage" class="mt-2 font-weight-bold"></div>
         <div class="d-flex justify-content-end mt-3">
           <button type="button" class="btn btn-secondary" onclick="closeModal('passwordModal')">Cancel</button>
-          <button type="submit" class="btn btn-primary ml-2">Save</button>
+          <button type="submit" class="btn btn-primary ml-2" id="savePasswordBtn">
+            <span class="save-text">Save</span>
+          </button>
         </div>
-
-        
       </form>
     </div>
   </div>
 
+
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="script.js"></script>
-
 </body>
 
 </html>

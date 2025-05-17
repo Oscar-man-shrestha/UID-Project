@@ -6,34 +6,34 @@
   <title>User Profile</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="userprofile.css">
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/your-code.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-
 <header>
   <div class="logo-container">
     <div class="logo">
-      <a href="../index.html">CineSphere</a>
+      <!-- <a href="../index.html">CineSphere</a> -->
+      <a href="../main.html"><img src="../Logo/cinesphere-high-resolution-logo-nobg_updated.png" alt=""></a>
     </div>
   </div>
   <div class="nav-links">
-    <span class="watch-nav"><a href="../watchlist/watchList.html">Watchlist</a></span>
+    <span class="watch-nav"><a href="../watchlist/watchList.html" id="adminwhlink"><p id="adminwh" >Watchlist</p></a></span>
     <div class="action">
       <div class="profile" onclick="menuToggle()">
-        <img src="../profile/images/Rowan Atkinson.jpeg" alt="Profile Image">
+        <img src="" alt="Profile Image">
       </div>
-      <div class="menu">
-        <h3>Username <br><span>Student</span></h3>
+       <div class="menu">
+        <h3 id="userName">Username <br><span>Student</span></h3>
         <ul>
           <li><img src="../Logo/user.png"><a href="#">My profile</a></li>
           <li><img src="../Logo/edit.png"><a href="../profile/index.html">Edit profile</a></li>
-          <li><img src="../Logo/star.png"><a href="#">Your rating</a></li>
-          <li><img src="../Logo/bookmark.png"><a href="../watchlist/watchList.html">Your watchlist</a></li>
+          <div id="rating"><li><img src="../Logo/star.png" class="yourrating"><a href="../yourrating.html" class="yourrating"><p class="yourrating">Your rating</p></a></li></div>
+          <li><img src="../Logo/bookmark.png"><a href="../watchlist/watchList.html" id="linkwatchhour"  ><p id="logoWatchlist">Your watchlist</p></a></li>
           <li><img src="../Logo/settings.png"><a href="../profile/index.html">Settings</a></li>
-          <li><img src="../Logo/question.png"><a href="#">Help</a></li>
-          <li><img src="../Logo/log-out.png"><a href="#">Logout</a></li>
+          <li><img src="../Logo/question.png"><a href="../index.html#contact">Help</a></li>
+          <li><img src="../Logo/log-out.png"><a href="../login.html">Logout</a></li>
         </ul>
       </div>
     </div>
@@ -42,10 +42,11 @@
 
 <div class="profile-container">
   <div class="profile-left">
-    <img src="../watchlist/img/Rowan Atkinson.jpeg" alt="Profile Photo">
+    <img src="../watchlist/img/Rowan Atkinson.jpeg" alt="Profile Photo" id="mainpic">
+
     <div class="profile-info">
-      <h2>Username</h2>
-      <p>📅 Joined Apr 2025</p>
+      <h2 id="userName1">Username</h2>
+      <p id="joined">📅 Joined Apr 2025</p>
       <button class="edit-btn"><a href="../profile/">Edit Profile</a></button>
       <div class="user-status">
         <span id="userStatus">Freemium User</span>
@@ -61,6 +62,7 @@
       <i class="fas fa-cog" title="Settings" onclick="toggleSettingsDropdown()"></i>
       <div id="settingsDropdown" class="dropdown-content">
         <button onclick="window.location.href='../profile/index.html'">Account Settings</button>
+        <button onclick="toggleSideCard()">Toggle Sidebar</button>
       </div>
       <div class="share-container">
         <i class="fas fa-share-alt" title="Share" onclick="toggleShareDropdown()"></i>
@@ -72,52 +74,90 @@
       </div>
     </div>
     <div class="grid-boxes">
-      <div class="box"><span>Ratings</span><span>0</span></div>
-      <div class="box"><span>Watchlist</span><span>1</span></div>
-      <div class="box"><span>Lists</span><span>0</span></div>
-      <div class="box more-btn" id="moreBtn"><span>More</span><span>→</span></div>
+      <div class="box"><span>Ratings</span><span><p id="ratings">0</p></span></div>
+      <div class="box"><span>Watchlist</span><span><p id="watchlist">1</p></span></div>
+      <div class="box"><span>Lists</span><span><p id="lists">0</p></span></div>
+      <div class="box more-btn" id="moreBtn" onclick="toggleSideCard()"><span>More</span><span>→</span></div>
     </div>
   </div>
 </div>
 
 <div class="info-box">
   <strong>Welcome to your new profile</strong><br>
-  <br>
-  <a href="#">Follows CineSphere on social media</a>
+  <div class="social-links">
+    <span>Follow us:</span>
+    <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+    <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+  </div>
 </div>
 
 <div class="section">
   <div class="text">
-    <h2>Ratings</h2>
-    <span id="ratingsStatus">Your ratings are public. <a href="#" onclick="openModal('ratingsModal')">Edit</a></span>
-    <a href="#" class="btn">Browse popular movies</a>
+    <h2  id="ratingsStatus">Ratings</h2>
+    <span id="ratingsStatus">Your ratings are public. <a href="#" class="edit" onclick="openModal('ratingsModal')">Edit</a></span>
+    <a href="../main.html" class="btn">Browse popular movies</a>
   </div>
-  <div class="count">0</div>
+  <div class="count" id="count2">0</div>
 </div>
 
 <div class="section">
   <div class="text">
-    <h2>Watchlist</h2>
-    <span id="watchlistStatus">Your Watchlist is public. <a href="#" onclick="openModal('watchlistModal')">Edit</a></span>
+    <h2  id="wh" class="color">Watchlist</h2>
+    <span id="watchlistStatus" class="color">Your Watchlist is public. <a href="#" class="edit" onclick="openModal('watchlistModal')">Edit</a></span>
+    <div id="addlink"></div> 
+
   </div>
-  <div class="count">0</div>
+  <div class="count" id="count">0</div>
 </div>
 
-<div class="section">
-  <div class="text">
-    <h2>Check-ins</h2>
-    <span id="checkinsStatus">Your check-ins are private. <a href="#" onclick="openModal('checkinsModal')">Edit</a></span>
-  </div>
-  <div class="count">0</div>
+<div class="checkin-section" id="checkin">
+  <h2>Friends Who Checked In</h2>
+  <div class="checkin-friends"></div>
 </div>
 
-<!-- 🌐 Privacy Modals -->
+<div class="friend-popup-container">
+  <div class="friend-popup">
+    <button class="close-friend-popup">&times;</button>
+    <img src="" class="friend-popup-avatar" alt="Friend Avatar">
+    <h3 class="friend-popup-name">Friend Name</h3>
+    <p class="friend-popup-status">Status: <span>Unknown</span></p>
+    <p class="friend-popup-last-checkin">Last Check-in: <span>Never</span></p>
+  </div>
+</div>
+
+<div class="side-card" id="sideCard">
+  <div class="card-content">
+    <button class="close-side-card" onclick="toggleSideCard()">&times;</button>
+    <h3>More Options</h3>
+    
+    <div class="more-option" onclick="showThemeOption()">
+      <i class="fas fa-moon"></i>
+      <span>Theme Settings</span>
+    </div>
+    
+    <div class="more-option" onclick="showPrivacySettings()">
+      <i class="fas fa-lock"></i>
+      <span>Privacy Settings</span>
+    </div>
+    
+    <div class="more-option" onclick="showAccountInfo()">
+      <i class="fas fa-user-cog"></i>
+      <span>Account Information</span>
+    </div>
+    
+    <div class="content-display" id="sideCardContent">
+      <!-- Content will be displayed here -->
+    </div>
+  </div>
+</div>
 <div id="ratingsModal" class="privacy-modal">
   <div class="modal-content">
-    <h3 class="privacy">Change Ratings Visibility</h3><br>
+    <h3>Change Ratings Visibility</h3><br>
     <div class="modal-options">
-      <label><input type="radio" name="ratings" value="public" id="ratingsPublic" /> <span class="privacy">Make Public</span></label>
-      <label><input type="radio" name="ratings" value="private" id="ratingsPrivate" /> <span class="privacy">Make Private</span></label>
+      <label><input type="radio" name="ratings" value="public" id="ratingsPublic" /> Make Public</label>
+      <label><input type="radio" name="ratings" value="private" id="ratingsPrivate" /> Make Private</label>
     </div>
     <button onclick="saveRatingsVisibility()">Save</button>
     <button onclick="closeModal('ratingsModal')">Cancel</button>
@@ -126,31 +166,18 @@
 
 <div id="watchlistModal" class="privacy-modal">
   <div class="modal-content">
-    <h3 class="privacy">Change Watchlist Visibility</h3><br>
+    <h3>Change Watchlist Visibility</h3><br>
     <div class="modal-options">
-      <label><input type="radio" name="watchlist" value="public" id="watchlistPublic" /> <span class="privacy">Make Public</span></label>
-      <label><input type="radio" name="watchlist" value="private" id="watchlistPrivate" /> <span class="privacy">Make Private</span></label>
+      <label><input type="radio" name="watchlist" value="public" id="watchlistPublic" /> Make Public</label>
+      <label><input type="radio" name="watchlist" value="private" id="watchlistPrivate" /> Make Private</label>
     </div>
     <button onclick="saveWatchlistVisibility()">Save</button>
     <button onclick="closeModal('watchlistModal')">Cancel</button>
   </div>
 </div>
 
-<div id="checkinsModal" class="privacy-modal">
-  <div class="modal-content">
-    <h3 class="privacy">Change Check-ins Visibility</h3><br>
-    <div class="modal-options">
-      <label><input type="radio" name="checkins" value="public" id="checkinsPublic" /> <span class="privacy">Make Public</span></label>
-      <label><input type="radio" name="checkins" value="private" id="checkinsPrivate" /> <span class="privacy">Make Private</span></label>
-    </div>
-    <button onclick="saveCheckinsVisibility()">Save</button>
-    <button onclick="closeModal('checkinsModal')">Cancel</button>
-  </div>
-</div>
-
 <div id="toast">Link copied!</div>
 
-
-<script src="./userprofile.js"></script>
+<script src="userprofile.js"></script>
 </body>
 </html>

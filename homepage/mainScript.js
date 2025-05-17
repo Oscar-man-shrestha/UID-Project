@@ -425,15 +425,16 @@ function showUpgradeModal() {
   
 
   // navbar
-const siteSearch   = document.getElementById('siteSearch');
-const dropdown     = document.getElementById('searchDropdown');
+// … your existing code above …
 
 // 2) helper to flatten all movies into one array
 const allMovies = Object.entries(moviesByGenre).flatMap(([genre, arr]) =>
   arr.map(m => ({ ...m, genre }))
 );
 
-// 3) rebuild dropdown on each keystroke
+const siteSearch = document.getElementById('siteSearch');
+const dropdown   = document.getElementById('searchDropdown');
+
 siteSearch.addEventListener('input', () => {
   const q = siteSearch.value.trim().toLowerCase();
   if (!q) {
@@ -441,21 +442,17 @@ siteSearch.addEventListener('input', () => {
     return;
   }
 
-  
-    // find up to 10 matches, but only in the genres we rendered
-    const matches = allMovies
-    .filter(m => 
-      genresToShow.includes(m.genre) &&                 // ← only these genres
-      ( (m.title + ' ' + m.genre + ' ' + (m.cast||[]).join(' '))
-          .toLowerCase()
-          .includes(q) )
+  const matches = allMovies
+    .filter(m =>
+      genresToShow.includes(m.genre) &&
+      (m.title + ' ' + m.genre + ' ' + (m.cast||[]).join(' '))
+        .toLowerCase()
+        .includes(q)
     )
     .slice(0, 10);
 
-
-  // build list items
   dropdown.innerHTML = matches.map(m => `
-    <li data-link="${m.link||''}">
+    <li data-link="${m.id}">
       <img src="${m.img}" alt="${m.title}">
       <span class="title">${m.title}</span>
     </li>
@@ -464,20 +461,21 @@ siteSearch.addEventListener('input', () => {
   dropdown.classList.toggle('hidden', matches.length === 0);
 });
 
-
 dropdown.addEventListener('click', e => {
   const li = e.target.closest('li');
   if (!li) return;
-  const link = li.dataset.link;
-  if (link) window.location.href = link;
+  const movieId = li.dataset.link;
+  viewMovie(movieId);
 });
 
-// 5) clicking outside closes dropdown
+// close if you click _anywhere_ outside
 document.addEventListener('click', e => {
   if (!siteSearch.contains(e.target) && !dropdown.contains(e.target)) {
     dropdown.classList.add('hidden');
+    siteSearch.value = '';
   }
 });
+
 
 
 function topFunction() {
@@ -543,12 +541,9 @@ document.body.addEventListener('click', e => {
   viewMovie(card.dataset.movieId);
 });
 
-
-
 document.addEventListener('DOMContentLoaded', function () {
     // Simulating user object; replace this with your actual user data
     
-
     // Set username and role dynamically
     const usernameElement = document.getElementById('nav-username');
     const roleElement = document.getElementById('nav-role');

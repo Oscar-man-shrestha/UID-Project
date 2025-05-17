@@ -1,0 +1,332 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Watch Hour Analytics | CineSphere</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" />
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">
+      <a href="../main.html"><i class="fas fa-film"></i> CineSphere Admin</a>
+    </div>
+    <div class="user-controls">
+      <div class="notification-container">
+        <div class="notification-bell" id="notificationBell">
+          <i class="fas fa-bell"></i>
+          <span class="notification-badge">3</span>
+        </div>
+        <div class="notification-dropdown" id="notificationDropdown">
+          <div class="notification-header">
+            <h3>Notifications</h3>
+            <button class="mark-all-read">Mark all as read</button>
+          </div>
+          <div class="notification-list">
+            <div class="notification-item unread">
+              <div class="notification-icon">
+                <i class="fas fa-exclamation-circle"></i>
+              </div>
+              <div class="notification-content">
+                <p>New user registered - John Doe</p>
+                <small>2 minutes ago</small>
+              </div>
+            </div>
+            <div class="notification-item unread">
+              <div class="notification-icon">
+                <i class="fas fa-thumbs-up"></i>
+              </div>
+              <div class="notification-content">
+                <p>Sarah liked your comment</p>
+                <small>1 hour ago</small>
+              </div>
+            </div>
+            <div class="notification-item">
+              <div class="notification-icon">
+                <i class="fas fa-calendar-check"></i>
+              </div>
+              <div class="notification-content">
+                <p>New movie added: The Matrix</p>
+                <small>3 hours ago</small>
+              </div>
+            </div>
+          </div>
+          <div class="notification-footer">
+            <a href="#">View all notifications</a>
+          </div>
+        </div>
+      </div>
+      <a href="../"></a>
+      
+      <!-- Profile Dropdown -->
+      <div class="profile-action">
+        <div class="profile" onclick="menuToggle()">
+          <img src="../profile/images/Rowan Atkinson.jpeg" alt="Profile Image">
+        </div>
+        <div class="profile-menu">
+          <h3 id="username">User Name <br><span>Student</span></h3>
+          <ul>
+            <li><i class="fas fa-user"></i><a href="../userprofile/userprofile.html">My profile</a></li>
+            <li><i class="fas fa-edit"></i><a href="../profile/index.html">Edit profile</a></li>
+            <li><i class="fas fa-star"></i><a href="../yourrating.html">Your rating</a></li>
+            <li><i class="fas fa-clock"></i><a href="../watch hours/index.html">Watch Hour</a></li>
+            <li><i class="fas fa-cog"></i><a href="../profile/index.html">Settings</a></li>
+            <li><i class="fas fa-question-circle"></i><a href="../index.html">Help</a></li>
+            <li><i class="fas fa-sign-out-alt"></i><a href="../login.html">Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+    <div class="admin-dashboard">
+    <div class="dashboard-header">
+      <h1 class="animate__animated animate__fadeIn">Watch Hour Analytics</h1>
+      <div class="date-filter">
+        <span>Filter by:</span>
+        <select id="time-period">
+          <option value="7">Last 7 Days</option>
+          <option value="30" selected>Last 30 Days</option>
+          <option value="90">Last 90 Days</option>
+          <option value="365">Last Year</option>
+          <option value="custom">Custom Range</option>
+        </select>
+        <div id="custom-range-container" style="display: none;">
+          <input type="date" id="start-date">
+          <span>to</span>
+          <input type="date" id="end-date">
+          <button class="btn btn-primary btn-sm" id="apply-custom-range">Apply</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats-container">
+      <div class="stat-card animate__animated animate__fadeInUp">
+        <i class="fas fa-users stat-icon"></i>
+        <h2>Total Watch Hours</h2>
+        <div class="stat-value">12,458</div>
+        <div class="stat-change positive">
+          <i class="fas fa-arrow-up"></i> 8.2% from last period
+        </div>
+      </div>
+      <div class="stat-card animate__animated animate__fadeInUp animate__delay-1s">
+        <i class="fas fa-venus-mars stat-icon"></i>
+        <h2>Avg. Watch Time</h2>
+        <div class="stat-value">2.8 <small>hrs/user</small></div>
+        <div class="stat-change positive">
+          <i class="fas fa-arrow-up"></i> 1.4% from last period
+        </div>
+      </div>
+      <div class="stat-card animate__animated animate__fadeInUp animate__delay-2s">
+        <i class="fas fa-user-friends stat-icon"></i>
+        <h2>Active Users</h2>
+        <div class="stat-value">4,892</div>
+        <div class="stat-change negative">
+          <i class="fas fa-arrow-down"></i> 2.1% from last period
+        </div>
+      </div>
+      <div class="stat-card animate__animated animate__fadeInUp animate__delay-3s">
+        <i class="fas fa-heart stat-icon"></i>
+        <h2>Engagement Rate</h2>
+        <div class="stat-value">78%</div>
+        <div class="stat-change positive">
+          <i class="fas fa-arrow-up"></i> 5.6% from last period
+        </div>
+      </div>
+    </div>
+
+    <div class="graph-container">
+      <div class="graph-card animate__animated animate__fadeIn">
+        <h2><i class="fas fa-chart-pie"></i> Watch Hours by Gender</h2>
+        <canvas id="genderChart"></canvas>
+      </div>
+      <div class="graph-card animate__animated animate__fadeIn">
+        <h2><i class="fas fa-chart-bar"></i> Age Group Breakdown</h2>
+        <canvas id="ageGroupChart"></canvas>
+      </div>
+    </div>
+
+    <div class="graph-container">
+      <div class="graph-card animate__animated animate__fadeIn">
+        <h2><i class="fas fa-chart-line"></i> Daily Watch Hours</h2>
+        <canvas id="dailyChart"></canvas>
+      </div>
+      <div class="graph-card animate__animated animate__fadeIn">
+        <h2><i class="fas fa-map-marked-alt"></i> Geographic Distribution</h2>
+        <canvas id="geoChart"></canvas>
+      </div>
+    </div>
+
+    <div class="data-table-container animate__animated animate__fadeIn">
+      <div class="data-table-header">
+        <h2><i class="fas fa-table"></i> User Watch Time Details</h2>
+        <div class="action-buttons">
+          <button class="btn btn-outline btn-sm" id="filter-btn"><i class="fas fa-filter"></i> Filter</button>
+          <button class="btn btn-outline btn-sm" id="export-btn"><i class="fas fa-download"></i> Export</button>
+        </div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>User ID</th>
+            <th>Name</th>
+            <th>Watch Hours</th>
+            <th>Sessions</th>
+            <th>Last Active</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>#USR-1001</td>
+            <td>John Smith</td>
+            <td>24.5</td>
+            <td>18</td>
+            <td>2 hours ago</td>
+            <td><span class="badge badge-success">Active</span></td>
+            <td>
+              <div class="action-buttons">
+                <button class="btn btn-outline btn-sm view-user-btn" data-user-id="1001"><i class="fas fa-eye"></i></button>
+                <button class="btn btn-outline btn-sm email-user-btn" data-user-id="1001"><i class="fas fa-envelope"></i></button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>#USR-1002</td>
+            <td>Sarah Johnson</td>
+            <td>42.3</td>
+            <td>27</td>
+            <td>1 day ago</td>
+            <td><span class="badge badge-success">Active</span></td>
+            <td>
+              <div class="action-buttons">
+                <button class="btn btn-outline btn-sm view-user-btn" data-user-id="1002"><i class="fas fa-eye"></i></button>
+                <button class="btn btn-outline btn-sm email-user-btn" data-user-id="1002"><i class="fas fa-envelope"></i></button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>#USR-1003</td>
+            <td>Michael Brown</td>
+            <td>8.7</td>
+            <td>5</td>
+            <td>3 days ago</td>
+            <td><span class="badge badge-primary">Inactive</span></td>
+            <td>
+              <div class="action-buttons">
+                <button class="btn btn-outline btn-sm view-user-btn" data-user-id="1003"><i class="fas fa-eye"></i></button>
+                <button class="btn btn-outline btn-sm email-user-btn" data-user-id="1003"><i class="fas fa-envelope"></i></button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>#USR-1004</td>
+            <td>Emily Davis</td>
+            <td>36.2</td>
+            <td>22</td>
+            <td>5 hours ago</td>
+            <td><span class="badge badge-success">Active</span></td>
+            <td>
+              <div class="action-buttons">
+                <button class="btn btn-outline btn-sm view-user-btn" data-user-id="1004"><i class="fas fa-eye"></i></button>
+                <button class="btn btn-outline btn-sm email-user-btn" data-user-id="1004"><i class="fas fa-envelope"></i></button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>#USR-1005</td>
+            <td>Robert Wilson</td>
+            <td>15.9</td>
+            <td>11</td>
+            <td>1 week ago</td>
+            <td><span class="badge badge-primary">Inactive</span></td>
+            <td>
+              <div class="action-buttons">
+                <button class="btn btn-outline btn-sm view-user-btn" data-user-id="1005"><i class="fas fa-eye"></i></button>
+                <button class="btn btn-outline btn-sm email-user-btn" data-user-id="1005"><i class="fas fa-envelope"></i></button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="more-options">
+      <button id="more-options-btn" class="btn btn-primary animate__animated animate__pulse animate__infinite">
+        <i class="fas fa-cog"></i> More Options
+      </button>
+      <div id="more-options-dropdown" class="dropdown">
+        <button onclick="generateReport()" id="pdf-report-btn">
+          <i class="fas fa-file-pdf"></i> Generate PDF Report
+        </button>
+        <button onclick="exportData()">
+          <i class="fas fa-file-csv"></i> Export as CSV
+        </button>
+        <button onclick="sendEmail()">
+          <i class="fas fa-paper-plane"></i> Send Email Summary
+        </button>
+        <button onclick="refreshData()">
+          <i class="fas fa-sync-alt"></i> Refresh Data
+        </button>
+        <button onclick="openSettings()">
+          <i class="fas fa-cogs"></i> Analytics Settings
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- User Detail Modal -->
+  <div class="modal" id="userModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>User Details</h2>
+        <button class="close-modal">&times;</button>
+      </div>
+      <div class="modal-body" id="userModalContent">
+        <!-- Content will be loaded dynamically -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline close-modal">Close</button>
+        <button class="btn btn-primary" id="sendMessageBtn"><i class="fas fa-paper-plane"></i> Send Message</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Email User Modal -->
+  <div class="modal" id="emailModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Send Email to User</h2>
+        <button class="close-modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="emailSubject">Subject</label>
+          <input type="text" id="emailSubject" class="form-control" placeholder="Enter email subject">
+        </div>
+        <div class="form-group">
+          <label for="emailMessage">Message</label>
+          <textarea id="emailMessage" class="form-control" rows="5" placeholder="Enter your message"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline close-modal">Cancel</button>
+        <button class="btn btn-primary" id="sendEmailBtn"><i class="fas fa-paper-plane"></i> Send Email</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+<script src="./script.js"></script>
+<!-- Toast Notification Container -->
+<div id="toast-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;"></div>
+</body>
+</html>
